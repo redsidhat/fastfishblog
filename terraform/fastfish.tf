@@ -13,9 +13,10 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "fastfish" {
     ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t1.micro"
-    key_name = "ubuntu_forerunners"
     associate_public_ip_address = "true"
+    security_groups = ["allow_all"]
+    key_name = "ubuntu_forerunners"
     tags {
-        Name = "test"
+        Name = "test-1"
     }
 }
