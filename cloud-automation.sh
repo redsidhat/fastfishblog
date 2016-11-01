@@ -23,14 +23,14 @@ if [ -z $3 ]; then
 fi
 
 server_count=$4
-if [ -z $3 ]; then
+if [ -z $4 ]; then
     echo "Number of server is not specified. Taking deafult 2."
     sleep 1
     server_count=2
 fi
 
 server_size=$5
-if [ -z $4 ]; then
+if [ -z $5 ]; then
     echo "Server size is not specified. Taking  t1.micro as deafult "
     sleep 1
     server_size='t1.micro'
@@ -51,11 +51,12 @@ if [ $? -ne 0 ]; then
 	exit 2
 fi
 echo "Ansible is present..."
-echo "Proceeding to launching $server_count server(s)"
+echo "Proceeding to launch $server_count server(s)"
 ssh_key=$(echo $ssh_key | sed -e 's/\.pem$//g')
 
 sed -i "s/\s.*key_name\s=.*/    key_name = \"$ssh_key\"/g" terraform/fastfish.tf
 sed -i "s/\s.*count\s=.*/    count = $server_count/g" terraform/fastfish.tf
+echo $server_size
 sed -i "s/\s.*instance_type\s=.*/    instance_type = \"$server_size\"/g" terraform/fastfish.tf
 cd terraform/
 terraform plan
