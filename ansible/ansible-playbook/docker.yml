@@ -21,4 +21,7 @@
     - name: creating directory
       file: path=~/wp-docker state=directory
     - name: copying docker compose file 
-      copy: src=files/wp_docker.yml dest=~/wp-docker/wp_docker.yml mode=0644
+      copy: src=files/wp_docker.yml dest=~/wp-docker/docker-compose.yml mode=0644
+    - name: docker composing
+      shell: cd /root/wp-docker && docker-compose up & >/var/log/docker-compose-run.log 2>&1 
+      register: docker up
