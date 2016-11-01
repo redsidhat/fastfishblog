@@ -8,5 +8,5 @@
 
 > The script parameter order has been changed to accomedate a new parameter, ssh_key
 
-``sh
+```sh
 bash cloud-automation.sh test dev ubuntu_forerunners.pem 1
