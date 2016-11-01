@@ -14,6 +14,8 @@
       ignore_errors: True
     - name: install python-pip
       apt: name=python-pip update_cache=yes state=latest
+    - name: install daemon
+      apt: name=daemon update_cache=yes state=latest
     - name: install docker compose
       shell: pip install docker-compose
       register: installed docker compose
@@ -23,7 +25,7 @@
     - name: copying docker compose file 
       copy: src=files/wp_docker.yml dest=~/wp-docker/docker-compose.yml mode=0644
     - name: docker composing
-      shell: nohup docker-compose up >/var/log/docker-compose-run.log 2>&1 
+      shell: daemon -- docker-compose up 
       args:
-        chdir: somedir/
+        chdir: /root/wp-docker/
       register: docker up
