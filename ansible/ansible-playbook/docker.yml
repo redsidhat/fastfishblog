@@ -23,5 +23,7 @@
     - name: copying docker compose file 
       copy: src=files/wp_docker.yml dest=~/wp-docker/docker-compose.yml mode=0644
     - name: docker composing
-      shell: nohup cd /root/wp-docker && docker-compose up >/var/log/docker-compose-run.log 2>&1 
+      shell: nohup docker-compose up >/var/log/docker-compose-run.log 2>&1 
+      args:
+        chdir: somedir/
       register: docker up
